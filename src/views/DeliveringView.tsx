@@ -31,6 +31,13 @@ function MapUpdater({ center }: { center: [number, number] }) {
   return null;
 }
 
+// Sumber tile peta: OpenStreetMap standar (gratis, tanpa API key).
+// Catatan: server ini untuk pemakaian ringan-menengah. Jika trafik besar,
+// pindah ke penyedia tile lain (mis. OpenFreeMap atau MapTiler).
+const TILE_URL = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
+const TILE_ATTRIBUTION =
+  '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+
 // Batas filter kualitas GPS
 const MAX_ACCURACY_METERS = 25;
 const MIN_MOVE_METERS = 5;
@@ -100,8 +107,9 @@ export function DeliveringView({ currentLocation, startLocation, transportMode, 
             style={{ width: '100%', height: '100%' }}
           >
             <TileLayer
-              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
-              url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
+              attribution={TILE_ATTRIBUTION}
+              url={TILE_URL}
+              maxZoom={19}
             />
             {startLocation && (
               <Marker position={[startLocation.latitude, startLocation.longitude]} icon={startIcon} />
