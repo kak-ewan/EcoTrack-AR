@@ -1,5 +1,5 @@
 import React from 'react';
-import { PlantModel, TransportMode } from '../types';
+import { PlantModel, TransportMode, EMISSION_SOURCES } from '../types';
 import { CheckCircle, Leaf, Wind, Smartphone, TreePine } from 'lucide-react';
 import { motion } from 'motion/react';
 
@@ -54,7 +54,7 @@ export function ResultView({ plant, transportMode, distanceMeters, onReset }: Pr
               <div className="flex justify-between items-center pt-2">
                  <span className="text-slate-500 font-medium">Jejak Karbon</span>
                  <span className={`font-bold text-xl ${isZeroEmission ? 'text-green-500' : 'text-rose-500 flex items-center gap-2'}`}>
-                    {carbonEmitted.toFixed(1)} g CO2
+                    {carbonEmitted.toFixed(1)} g CO₂
                     {!isZeroEmission && <Wind size={20} />}
                  </span>
               </div>
@@ -99,6 +99,21 @@ export function ResultView({ plant, transportMode, distanceMeters, onReset }: Pr
               </div>
            </motion.div>
         )}
+
+        {/* Catatan estimasi & sumber ilmiah */}
+        <div className="w-full bg-white border border-slate-200 rounded-2xl p-4 mb-6 text-xs text-slate-500 leading-relaxed">
+          <p className="font-semibold text-slate-600 mb-1">Catatan estimasi</p>
+          <p className="mb-2">
+            Angka ini adalah <span className="font-semibold">estimasi untuk edukasi</span>, bukan pengukuran emisi resmi.
+            Jarak dihitung dari lintasan GPS dan emisi dihitung dengan faktor rata-rata. {transportMode.note}
+          </p>
+          <p className="font-semibold text-slate-600 mb-1">Rujukan ilmiah</p>
+          <ul className="list-disc pl-4 space-y-1">
+            {EMISSION_SOURCES.map((src) => (
+              <li key={src}>{src}</li>
+            ))}
+          </ul>
+        </div>
       </div>
 
       <button
