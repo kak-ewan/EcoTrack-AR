@@ -32,6 +32,7 @@ export function SelectTransportView({ onSelect, onBack }: { onSelect: (mode: Tra
               whileTap={{ scale: 0.95 }}
               onClick={() => onSelect(mode)}
               className={`p-4 rounded-2xl shadow-sm border flex flex-col items-center justify-center transition gap-3 
+                ${idx === TRANSPORT_MODES.length - 1 && TRANSPORT_MODES.length % 2 === 1 ? 'col-span-2' : ''}
                 ${mode.emissionFactor > 0 ? 'bg-white border-slate-100 hover:border-slate-300' : 'bg-emerald-50 border-green-200 hover:border-green-400 hover:shadow-md'}`}
             >
               <div className={`p-4 rounded-full ${mode.emissionFactor > 0 ? 'bg-slate-100 text-slate-700' : 'bg-emerald-200 text-emerald-800'}`}>
@@ -39,7 +40,7 @@ export function SelectTransportView({ onSelect, onBack }: { onSelect: (mode: Tra
               </div>
               <h3 className="font-bold text-slate-800 text-center text-sm">{mode.name}</h3>
               <div className={`text-[10px] font-bold px-2 py-1 rounded-md ${mode.emissionFactor > 0 ? 'bg-slate-100 text-slate-600' : 'bg-green-600 text-white shadow-sm'}`}>
-                 {mode.emissionFactor > 0 ? `${mode.emissionFactor}g CO2/km` : 'Pahlawan Alam 🌿'}
+                 {mode.emissionFactor > 0 ? `± ${mode.emissionFactor} g CO₂/km` : 'Pahlawan Alam 🌿'}
               </div>
             </motion.button>
           )
